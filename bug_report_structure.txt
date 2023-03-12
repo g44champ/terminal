@@ -1,0 +1,8 @@
+Bug_report
+Enviroment - 
+	id_1:
+		Title - 
+		Steps - 
+		AC - 
+		ER - 
+		link - 
