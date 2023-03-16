@@ -1,0 +1,61 @@
+// 2. Статус код 200
+pm.test("Status code is 200", function () { 
+  pm.response.to.have.status(200);
+});
+
+// 3. Спарсить response body в json.
+var responceData=pm.response.json(); 
+
+// 4. Проверить, что name в ответе равно name s request (name вбить руками.)
+pm.test("req_resp_name_check_hand", function () {
+    var resp_name=responceData.name;
+    pm.expect(resp_name).to.eql("Anton");
+});
+
+//5. Проверить, что age в ответе равно age s request (age вбить руками.)
+pm.test("req_resp_age_check_hand", function (){ 
+    var resp_age=+responceData.age; // "+" перед responceData.age преобразует строку в число
+    pm.expect(resp_age).to.eql(26);
+});
+
+// 6. Проверить, что salary в ответе равно salary s request (salary вбить руками.)
+pm.test("req_resp_salary_check_hand", function(){ 
+var resp_salary=+responceData.salary; // "+" перед responceData.salary преобразует строку в число
+pm.expect(resp_salary).to.eql(1111);
+});
+
+//7. Спарсить request.
+var req=request.data;
+
+// 8. Проверить, что name в ответе равно name s request (name забрать из request.)
+pm.test("req_resp_name_check", function () { 
+var req_name=req.name; 
+var resp_name=responceData.name; 
+     pm.expect(resp_name).to.eql(req_name);
+});
+
+// 9. Проверить, что age в ответе равно age s request (age забрать из request.)
+pm.test("resp_req_age_check", function(){ 
+    var req_age=req.age;
+    var resp_age=responceData.age;
+    pm.expect(resp_age).to.eql(req_age);
+});
+
+// 10. Проверить, что salary в ответе равно salary s request (salary забрать из request.)
+pm.test("resp_req_salary_check", function(){ 
+    var req_salary=+req.salary; // "+" перед req.salary преобразует строку в число
+    var resp_salary=responceData.salary;
+    pm.expect(resp_salary).to.eql(req_salary);
+});
+
+// 11. Вывести в консоль параметр family из response.
+var resp_family=responceData.family; 
+console.log(resp_family);
+
+// 12. Проверить что u_salary_1_5_year в ответе равно salary*4 (salary забрать из request)
+pm.test("salarycheck", function () {
+    var response_salary15 = responceData.family.u_salary_1_5_year;
+    var req_salary=req.salary*4;
+    pm.expect(response_salary15).to.eql(req_salary);
+    
+});
